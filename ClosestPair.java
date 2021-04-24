@@ -3,7 +3,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
-public class closestPair {
+public class ClosestPair {
     public static List<Integer> closestPair(int[] vec) {
         Arrays.sort(vec);
         int a = 0;
