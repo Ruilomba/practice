@@ -29,16 +29,23 @@ public class CircularQueue {
             if(isEmpty()) return false;
 
             size--;
+            if(isEmpty()) {
+                this.front = -1;
+                this.rear = -1;
+                return true;
+            }
+
             this.front = (this.front + 1) % this.capacity;
-            this.array[front] = -1;
             return true;
         }
 
         public int Front() {
+            if(this.isEmpty()) return -1;
             return this.array[front];
         }
 
         public int Rear() {
+            if(this.isEmpty()) return -1;
             return this.array[rear];
         }
 
@@ -51,16 +58,19 @@ public class CircularQueue {
         }
 
     public static void main(String[] args) {
-        CircularQueue myCircularQueue = new CircularQueue(3);
-        boolean cenas = myCircularQueue.enQueue(1); // return True
-        cenas =myCircularQueue.enQueue(2); // return True
-        cenas =myCircularQueue.enQueue(3); // return True
-        cenas =myCircularQueue.enQueue(4); // return False
-        int test = myCircularQueue.Rear();     // return 3
-        cenas =myCircularQueue.isFull();   // return True
+
+        CircularQueue myCircularQueue = new CircularQueue(6);
+        boolean cenas = myCircularQueue.enQueue(6);
+        int s = myCircularQueue.Rear();// return True
+        s = myCircularQueue.Rear();
         cenas =myCircularQueue.deQueue();  // return True
-        cenas =myCircularQueue.enQueue(4); // return True
-        test = myCircularQueue.Rear();     // return 4
+        cenas =myCircularQueue.enQueue(5); // return True
+        s = myCircularQueue.Rear();
+        cenas =myCircularQueue.deQueue();  // return True
+        s = myCircularQueue.Front();
+        cenas =myCircularQueue.deQueue();  // return True
+        cenas =myCircularQueue.deQueue();  // return True
+        cenas =myCircularQueue.deQueue();  // return True
     }
 }
  
