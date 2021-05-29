@@ -27,6 +27,17 @@ public class LevelOrderTraversal {
         levelOrderFill(root.right, levelNodes, level);
     }
 
+    public static boolean isValid(TreeNode root){
+        if(root == null) return false;
+        return isValidRec(root.left, root.right);
+    }
+
+    public static boolean isValidRec(TreeNode q, TreeNode p){
+        if(q == null && p == null) return true;
+        if(q != null && p != null && q.val == p.val)
+            return isValidRec(q.left, p.right) && isValidRec(q.right, p.left);
+        return false;
+    }
     public static List<List<Integer>> levelOrder(TreeNode root) {
         List<List<Integer>> levels = new ArrayList<>();
         List<Integer> level = new ArrayList<>();
@@ -55,6 +66,34 @@ public class LevelOrderTraversal {
         return levels;
     }
 
+    public static List<List<Integer>> levelOrder2(TreeNode root) {
+        List<List<Integer>> levels = new ArrayList<>();
+        List<Integer> level = new ArrayList<>();
+        Queue<TreeNode> queue = new LinkedList<>();
+        queue.offer(root);
+        queue.offer(null);
+
+        while(!queue.isEmpty()){
+            TreeNode currentNode = queue.poll();
+
+            if(currentNode == null){
+                levels.add(new ArrayList<>(level));
+                level = new ArrayList<>();
+                queue.offer(null);
+            }else {
+                level.add(currentNode.val);
+                if(currentNode.left != null){
+                    queue.offer(currentNode.left);
+                }
+                if(currentNode.right != null){
+                    queue.offer(currentNode.right);
+                }
+            }
+        }
+
+        return levels;
+    }
+
     public static void main(String[] args)   {
         TreeNode root = new TreeNode(3);
         root.left = new TreeNode(5);
@@ -63,6 +102,6 @@ public class LevelOrderTraversal {
         root.left.right.left = new TreeNode(7);
         root.left.right.right = new TreeNode(4);
 
-        List<List<Integer>> val = levelOrder(root);
+        List<List<Integer>> val = levelOrderFill(root);
     }
 }
